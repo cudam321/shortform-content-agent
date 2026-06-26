@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# secrets / env
+.env
+*.env
+
+# scratch + outputs
+work/
+out/
+build/
+remotion/public/tmp-*
+*.log
+.DS_Store
+
+# local models (downloaded by cloud-setup.sh)
+models/
+
+# private runtime state + config (never commit)
+accounts/accounts.yaml
+state/
+assets/music/*.mp3

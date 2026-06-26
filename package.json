@@ -1,0 +1,22 @@
+{
+  "name": "shortform-content-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Autonomous short-form video agent: pulls raw footage from Dropbox, edits 1080x1920 variations with Remotion, posts via the Zernio API, and learns from analytics.",
+  "scripts": {
+    "accounts": "node scripts/zernio.mjs accounts",
+    "vault": "node scripts/dropbox.mjs list",
+    "analyze": "node scripts/analyze-video.mjs",
+    "render": "node scripts/render.mjs",
+    "remotion:studio": "remotion studio remotion/index.ts"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.246",
+    "@remotion/fonts": "^4.0.246",
+    "@remotion/media-utils": "4.0.246",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.246"
+  }
+}

@@ -1,0 +1,80 @@
+# Example account roster. Copy to accounts/accounts.yaml and fill in with YOUR accounts.
+# accounts/accounts.yaml is gitignored — it holds your real handles + Zernio account ids.
+#
+# How to populate it:
+#   1. Connect each social account in the Zernio dashboard (https://zernio.com).
+#   2. Run `node scripts/zernio.mjs accounts` and copy each real `accountId` into
+#      `zernio_account_id` below. Verify field names from the raw response — don't assume.
+#
+# The model: each account is a different "show" in the same universe — same source vault,
+# distinct lane + voice + wording + music + trim style. Never post identical edits across
+# accounts. The weekly-review skill may evolve the voice/hook/caption/music fields from
+# analytics, but never the craft rules.
+
+defaults:
+  timezone: "UTC"                  # IANA tz for scheduling; override per-call with --tz or via $TIMEZONE
+  posts_per_day: 3                 # per-account default; ramp only when reach holds steady
+  posts_per_day_target: 10         # the goal; raise toward it only after a clean week
+  # Daily slot grid (local time). Each account staggers by slot_offset_minutes so the
+  # network never posts simultaneously; same-source variants must use different slots.
+  posting_slots: ["09:00", "10:30", "12:00", "13:30", "15:00", "16:30", "18:00", "19:30", "21:00", "22:30"]
+  style_preset: plain              # plain | box (bright/busy) | pill (horizontal/blurred), chosen per clip
+  hashtag_policy: "3-5 max, niche over broad, never #fyp spam"
+  # Craft rules — apply to EVERY account. Voice differs per lane; craft does not.
+  voice_craft_rules:
+    case: "lowercase default for personal/POV/emotional hooks; ALL CAPS for news/announcements"
+    banned_words: [vibe, vibrant, pulsating, cool, cheesy]   # add your own clichés to avoid
+    punctuation: "no em dashes, no semicolons; periods/ellipses; avoid '!'"
+    emoji: "one max, zero preferred"
+    specificity: "anchor every hook to a specific time/place/moment; generality is the enemy"
+    pov: "write from the viewer having the experience, not a press blurb about the brand"
+
+accounts:
+  - key: main
+    handle: "your_main_handle"
+    display_name: "Main"
+    zernio_account_id: ""          # fill from `node scripts/zernio.mjs accounts`
+    main: true
+    lane: "Flagship account — the best of everything: the mix of what matters most right now."
+    voice: "Confident, clear, on-brand. Sentence-case conversational hooks."
+    hook_style: "Conversational tension that the footage pays off."
+    caption_style: "Short, on-brand, ends on a reply-driving beat."
+    music: "Original live audio first; cleared beds from assets/music/ otherwise."
+    posting_window: "20:00"
+    slot_offset_minutes: 0
+
+  - key: highlights
+    handle: "your_highlights_handle"
+    display_name: "Highlights"
+    zernio_account_id: ""
+    lane: "Best-of highlights — peak moments, payoffs, reactions. The clips channel."
+    voice: "Present tense, in-the-room. Minimal words, maximum moment."
+    hook_style: "Spectacle-first; <=4-word hook or no text. Let the footage breathe."
+    caption_style: "One line + context. Asks a question the audience wants to answer."
+    music: "Original audio whenever it's an asset; never replace it on a payoff clip."
+    posting_window: "21:00"
+    slot_offset_minutes: 30
+
+  - key: story
+    handle: "your_story_handle"
+    display_name: "Story"
+    zernio_account_id: ""
+    lane: "Talking-head / behind-the-scenes / personality moments. The person is the product."
+    voice: "Intimate, warm, zero corporate polish — like texting a friend."
+    hook_style: "Lead with a relatable, specific angle; 2-4 balanced lines."
+    caption_style: "Diary-style, often a question to the comments."
+    music: "Soft/ambient or none — the voice is the audio."
+    posting_window: "13:00"
+    slot_offset_minutes: 40
+
+# Amplification targets (optional) — the ig-trial-reels and yt-shorts skills repost
+# already-posted, on-brand winners to ONE main account on each extra platform. Fill these
+# in only if you use those routines; leave the ids blank otherwise.
+amplification:
+  instagram_main:
+    handle: "your_ig_handle"
+    zernio_account_id: ""          # the ONLY instagram account the ig-trial-reels skill may post to
+    graduation_strategy: "SS_PERFORMANCE"
+  youtube_main:
+    handle: "your_yt_handle"
+    zernio_account_id: ""          # the ONLY youtube account the yt-shorts skill may post to
